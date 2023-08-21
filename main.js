@@ -26,9 +26,28 @@ function checkCashRegister(price, cash, cid) {
 
   // sort cid from highest to lowest unit value
   cid.sort((a, b) => currencyValue[b[0]] - currencyValue[a[0]]);
-  console.log(cid);
 
-  return change;
+  for (let i = 0; i < cid.length; i++) {
+    let unit = cid[i][0];
+    let amount = cid[i][1];
+
+
+    //check if the unit can be used for the change
+    if (changeDue >= currencyValue[unit]) {
+      console.log(`Unit can be used for change ${currencyValue[unit]}`);
+      // calculate how many units of same type are needed 
+      let unitCount = Math.floor(changeDue / currencyValue[unit]);
+      console.log(`Unit count = ${unitCount}`);
+
+      // check if the drawer have enough amount of this unit
+      if (amount / currencyValue[unit] < unitCount) {
+        // Use all amount of this unit
+        unitCount = Math.floor(amount / currencyValue[unit]);
+      }
+    }
+  }
+
+  return;
 }
 
 
