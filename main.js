@@ -22,11 +22,15 @@ function checkCashRegister(price, cash, cid) {
   }
 
   totalCid = totalCid.toFixed(2);
-  console.log(`Total cash in drawer is $${totalCid}`)
+  console.log(`Total cash in drawer is $${totalCid}`);
 
-  let change;
+  // sort cid from highest to lowest unit value
+  cid.sort((a, b) => currencyValue[b[0]] - currencyValue[a[0]]);
+  console.log(cid);
+
   return change;
 }
+
 
 checkCashRegister(19.5, 20,
   [
