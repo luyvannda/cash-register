@@ -11,6 +11,7 @@ function checkCashRegister(price, cash, cid) {
     "TWENTY": 20,
     "ONE HUNDRED": 100
   };
+  let change = [];
 
   let changeDue = cash - price;
   console.log(`Change due is $${changeDue}`);
@@ -32,22 +33,30 @@ function checkCashRegister(price, cash, cid) {
     let amount = cid[i][1];
 
 
-    //check if the unit can be used for the change
+    //check if the unit can be used for change
     if (changeDue >= currencyValue[unit]) {
       console.log(`Unit can be used for change ${currencyValue[unit]}`);
-      // calculate how many units of same type are needed 
+      // calculate how many units of same type we can use 
       let unitCount = Math.floor(changeDue / currencyValue[unit]);
       console.log(`Unit count = ${unitCount}`);
 
-      // check if the drawer have enough amount of this unit
+      // check if the drawer have enough amount of such unit
       if (amount / currencyValue[unit] < unitCount) {
-        // Use all amount of this unit
+        // Use all available amount of that unit 
         unitCount = Math.floor(amount / currencyValue[unit]);
       }
+
+      //update change due and cash in drawer after change
+      changeDue -= unitCount * currencyValue[unit];
+      changeDue = changeDue.toFixed(2)
+      console.log(`Change due after change $${changeDue}`)
+
+      totalCid -= unitCount * currencyValue[unit];
+      console.log(`Total cash in drawer after change is $${totalCid}`);
     }
   }
 
-  return;
+  return change;
 }
 
 
