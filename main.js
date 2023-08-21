@@ -12,6 +12,15 @@ function checkCashRegister(price, cash, cid) {
     "ONE HUNDRED": 100
   };
 
+  let totalCid = 0;
+
+  for (let i = 0; i < cid.length; i++) {
+    totalCid += cid[i][1];
+  }
+  console.log(totalCid)
+  totalCid = totalCid.toFixed(2);
+  console.log(totalCid)
+
   let change;
   return change;
 }
