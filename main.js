@@ -12,14 +12,17 @@ function checkCashRegister(price, cash, cid) {
     "ONE HUNDRED": 100
   };
 
-  let totalCid = 0;
+  let changeDue = cash - price;
+  console.log(`Change due is $${changeDue}`);
+
+  let totalCid = 0; //find the total cash in drawer
 
   for (let i = 0; i < cid.length; i++) {
     totalCid += cid[i][1];
   }
-  console.log(totalCid)
+
   totalCid = totalCid.toFixed(2);
-  console.log(totalCid)
+  console.log(`Total cash in drawer is $${totalCid}`)
 
   let change;
   return change;
