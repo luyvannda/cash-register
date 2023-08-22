@@ -47,20 +47,25 @@ function checkCashRegister(price, cash, cid) {
       }
 
       //update change due and cash in drawer after change
-      changeDue -= unitCount * currencyValue[unit];
+      let totalChange = unitCount * currencyValue[unit];
+
+      changeDue -= totalChange;
       changeDue = changeDue.toFixed(2)
       console.log(`Change due after change $${changeDue}`)
 
-      totalCid -= unitCount * currencyValue[unit];
+      totalCid -= totalChange;
       console.log(`Total cash in drawer after change is $${totalCid}`);
+
+      change.push([unit, totalChange])
     }
+
   }
 
   return change;
 }
 
 
-checkCashRegister(19.5, 20,
+let result = checkCashRegister(19.5, 20,
   [
     ["PENNY", 1.01], ["NICKEL", 2.05],
     ["DIME", 3.1], ["QUARTER", 4.25],
@@ -69,3 +74,4 @@ checkCashRegister(19.5, 20,
     ["ONE HUNDRED", 100]
   ]
 );
+console.log(result);
