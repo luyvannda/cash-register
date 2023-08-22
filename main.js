@@ -26,11 +26,13 @@ function checkCashRegister(price, cash, cid) {
   console.log(`Total cash in drawer is $${totalCid}`);
 
   // sort cid from highest to lowest unit value
-  cid.sort((a, b) => currencyValue[b[0]] - currencyValue[a[0]]);
+  let cidCopy = cid.slice();
 
-  for (let i = 0; i < cid.length; i++) {
-    let unit = cid[i][0];
-    let amount = cid[i][1];
+  let highestFirst = cidCopy.sort((a, b) => currencyValue[b[0]] - currencyValue[a[0]]);
+
+  for (let i = 0; i < highestFirst.length; i++) {
+    let unit = highestFirst[i][0];
+    let amount = highestFirst[i][1];
 
 
     //check if the unit can be used for change
@@ -58,20 +60,23 @@ function checkCashRegister(price, cash, cid) {
 
       change.push([unit, totalChange])
     }
-
   }
-
-  return change;
+  if (changeDue > 0) {
+    return { status: "INSUFFICIENT_FUNDS", change: [] };
+  } else if (totalCid == 0) {
+    return { status: "CLOSED", change: cid }
+  } else {
+    return { status: "OPEN", change: change };
+  }
 }
-
 
 let result = checkCashRegister(19.5, 20,
   [
-    ["PENNY", 1.01], ["NICKEL", 2.05],
-    ["DIME", 3.1], ["QUARTER", 4.25],
-    ["ONE", 90], ["FIVE", 55],
-    ["TEN", 20], ["TWENTY", 60],
-    ["ONE HUNDRED", 100]
+    ["PENNY", 0.5], ["NICKEL", 0],
+    ["DIME", 0], ["QUARTER", 0],
+    ["ONE", 0], ["FIVE", 0],
+    ["TEN", 0], ["TWENTY", 0],
+    ["ONE HUNDRED", 0]
   ]
 );
 console.log(result);
